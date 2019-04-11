@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './App.css';
-import Form from './components/Form'
-import Ideas from './components/Ideas'
-
+import Form from './components/Form';
+import Ideas from './components/Ideas';
+import { db } from './firebase';
 
 const App = () => {
   const [ideas, setIdeas] = useState([]);
 
+  useEffect(() => {
+    return db.collection('ideas').onSnapshot(snapshot => {
+      let docs = [];
+      snapshot.forEach(doc => {
+        docs = [
+          {
+            ...doc.data(),
+            id: doc.id
+          },
+          ...docs
+        ];
+      }); // end foreEach
+
+      // set new react component state
+      setIdeas(docs)
+    });
+
+  })
+  
   const handleFormSubmit = (event) => {
     event.preventDefault();
     // console.log(event.target.elements);
