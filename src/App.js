@@ -9,22 +9,24 @@ const App = () => {
   const [ideas, setIdeas] = useState([]);
 
   useEffect(() => {
-    return db.collection('ideas').onSnapshot(snapshot => {
-      console.log('snapshot', snapshot);
-      let docs = [];
-      snapshot.forEach(doc => {
-        docs = [
-          {
-            ...doc.data(),
-            id: doc.id
-          },
-          ...docs
-        ];
-      }); // end forEach
+    return db.collection('ideas')
+              .orderBy('createdAt')
+              .onSnapshot(snapshot => {
+                console.log('snapshot', snapshot);
+                let docs = [];
+                snapshot.forEach(doc => {
+                  docs = [
+                    {
+                      ...doc.data(),
+                      id: doc.id
+                    },
+                    ...docs
+                  ];
+                }); // end forEach
 
-      // set new react component state
-      setIdeas(docs)
-    });
+                // set new react component state
+                setIdeas(docs)
+              });
 
   }, []);
 
@@ -38,7 +40,8 @@ const App = () => {
     const [title, content] = event.target.elements;
     saveToDB({
       title: title.value, 
-      content: content.value
+      content: content.value,
+      createdAt: new Date()
     }).catch(console.error)
     // empties the form
     event.target.reset()
