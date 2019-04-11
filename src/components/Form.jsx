@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Form = () => {
+const Form = ({ onSubmit }) => {
   return (
-    <form onSubmit={() => {}}>
-      <input type="text" name="" id="" placeholder="new idea" className="elem-width"/><br/>
-      <textarea name="" id="" className="elem-width"></textarea><br/>
+    <form onSubmit={onSubmit}>
+      <input type="text" placeholder="new idea" className="elem-width"/><br/>
+      <textarea className="elem-width"></textarea><br/>
       <button>create</button>
     </form>
   )

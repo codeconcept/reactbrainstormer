@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Ideas = () => {
+const Ideas = ({ideas}) => {
   return (
     <ul>
-      <li>aze</li>
-      <li>qsd</li>
-      <li>wxc</li>
+      {ideas.map(idea => <li key={idea.id}>{idea.title}</li>)}
     </ul>
   )
 }

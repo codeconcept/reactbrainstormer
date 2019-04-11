@@ -18,3 +18,7 @@ code {
   padding: 0px;
   border: 1px solid green;
 }
+
+ul {
+  list-style-type: none;
+}
