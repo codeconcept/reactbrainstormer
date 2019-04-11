@@ -10,6 +10,7 @@ const App = () => {
 
   useEffect(() => {
     return db.collection('ideas').onSnapshot(snapshot => {
+      console.log('snapshot', snapshot);
       let docs = [];
       snapshot.forEach(doc => {
         docs = [
@@ -19,26 +20,26 @@ const App = () => {
           },
           ...docs
         ];
-      }); // end foreEach
+      }); // end forEach
 
       // set new react component state
       setIdeas(docs)
     });
 
-  })
+  }, []);
+
+  const saveToDB = (idea) => {
+    return db.collection('ideas').add(idea)
+  }
   
   const handleFormSubmit = (event) => {
     event.preventDefault();
     // console.log(event.target.elements);
     const [title, content] = event.target.elements;
-    setIdeas([
-      ...ideas,
-      {
-        id: Date.now(),
-        title: title.value,
-        content: content.value
-      }     
-    ]);
+    saveToDB({
+      title: title.value, 
+      content: content.value
+    }).catch(console.error)
     // empties the form
     event.target.reset()
   };
