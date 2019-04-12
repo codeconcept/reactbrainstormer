@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import Form from './components/Form';
 import Ideas from './components/Ideas';
+import IdeaDetails from './components/IdeaDetails';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { db } from './firebase';
@@ -63,6 +64,7 @@ const App = () => {
         <Route path="/ideas" render={() => (
           <Ideas ideas={ideas} />
         )} />
+        <Route path="/idea-details/:id" component={IdeaDetails} />
         <Route path="/new-idea" render={() => (
           <Form onSubmit={handleFormSubmit} />
         )} />
