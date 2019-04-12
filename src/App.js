@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 
 import './App.css';
+import Nav from './components/Nav';
+import Home from './components/Home';
 import Form from './components/Form';
 import Ideas from './components/Ideas';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 import { db } from './firebase';
 
 const App = () => {
@@ -49,9 +55,18 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2>Brainstormer</h2>
-      <Form onSubmit={handleFormSubmit} />
-      <Ideas ideas={ideas}/>
+      <Router>
+        <Nav />
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/ideas" render={() => (
+          <Ideas ideas={ideas} />
+        )} />
+        <Route path="/new-idea" render={() => (
+          <Form onSubmit={handleFormSubmit} />
+        )} />
+      </Router>
     </div>
   );
 }
