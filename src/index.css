@@ -40,3 +40,13 @@ ul {
 .right-pad {
   padding-right: 5px;
 }
+
+.ideas {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.idea {
+  flex: 1 1 120px;
+  min-height: 120px;
+}
